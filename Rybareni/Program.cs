@@ -10,10 +10,10 @@ namespace Rybareni
     {
         static void Main()
         {
-            int MapaX = 10;
-            int MapaY = 10;
+            int MapaX = 1000;
+            int MapaY = 1000;
             int[,] Mapa = new int[MapaX, MapaY];
-            const int PocetRyb = 50;
+            const int PocetRyb = 100000;
             int Ryba = 1;
             Random rybaPozice = new Random();
             int rX, rY;
@@ -37,8 +37,8 @@ namespace Rybareni
                 else Mapa[rX, rY] = Ryba;
             }
             //VypisPole(Mapa);
-            //Loviste(Mapa, 10, 10);
-            //MaximalniLoviste(Mapa, 3, 3);
+            Loviste(Mapa, 10, 10);
+            MaximalniLoviste(Mapa, 30, 30);
         }
         public static void VypisPole(int[,] Pole)
         {
