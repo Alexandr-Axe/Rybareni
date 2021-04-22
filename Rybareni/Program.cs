@@ -12,7 +12,7 @@ namespace Rybareni
         {
             Rybarime Santiago = new Rybarime(100, 100, 100_000);
             Santiago.RandomFishArray();
-            //Santiago.BestFishArray(0, 0, 0);
+            Santiago.BestFishArray();
         }
         
     }
@@ -30,21 +30,21 @@ namespace Rybareni
             Rybnik = new double[VyskaRybnika, SirkaRybnika];
         }
         double hodnotaPole = 0d;
-        Random nc = new Random();
+        readonly Random nc = new Random();
         double[,] CreateFishArray()
         {
-            for (int x = 0; x < Rybnik.GetLength(1); x++)
+            for (int x = 0; x < SirkaRybnika; x++)
             {
-                for (int y = 0; y < Rybnik.GetLength(0); y++)
+                for (int y = 0; y < SirkaRybnika; y++)
                 {
                     Rybnik[x, y] = nc.NextDouble();
                     hodnotaPole += Rybnik[x, y];
                 }
             }
             PocetRyb *= hodnotaPole;
-            for (int x = 0; x < Rybnik.GetLength(1); x++)
+            for (int x = 0; x < VyskaRybnika; x++)
             {
-                for (int y = 0; y < Rybnik.GetLength(0); y++)
+                for (int y = 0; y < SirkaRybnika; y++)
                 {
                     Rybnik[x, y] *= PocetRyb;
                 }
@@ -59,6 +59,33 @@ namespace Rybareni
         public void BestFishArray()
         {
             CreateFishArray();
+            double soucetCtvercu = 0d;
+            double mezikrok = 0d;
+            double vysledneRyby = 0d;
+            string vypisovani = string.Empty;
+            for (int x = 0; x < VyskaRybnika - 3; x++)
+            {
+                for (int y = 0; y < SirkaRybnika - 3; y++)
+                {
+                    soucetCtvercu += Rybnik[x, y];
+                    soucetCtvercu += Rybnik[x + 1, y];
+                    soucetCtvercu += Rybnik[x + 2, y];
+                    soucetCtvercu += Rybnik[x, y + 1];
+                    soucetCtvercu += Rybnik[x, y + 2];
+                    soucetCtvercu += Rybnik[x + 1, y + 1];
+                    soucetCtvercu += Rybnik[x + 1, y + 2];
+                    soucetCtvercu += Rybnik[x + 2, y + 1];
+                    soucetCtvercu += Rybnik[x + 2, y + 2];
+                    mezikrok = soucetCtvercu;
+                    soucetCtvercu = 0d;
+                    if (mezikrok > vysledneRyby)
+                    {
+                        vysledneRyby = mezikrok;
+                        vypisovani = $"{x}:{y} / {x + 2}:{y + 2} -> {vysledneRyby / hodnotaPole} ryb";
+                    }
+                }
+            }
+            Console.WriteLine(vypisovani);
         }
     }
 }
