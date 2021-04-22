@@ -37,7 +37,7 @@ namespace Rybareni
             {
                 for (int y = 0; y < SirkaRybnika; y++)
                 {
-                    Rybnik[x, y] = nc.NextDouble();
+                    Rybnik[x, y] = 1 - hodnotaPole + nc.NextDouble();//TADY JE CHYBA -> NEUMÍM GENEROVAT POMĚR VE ČTVERCÍCH, PROTO MÁM MILIONOVÝ POČTY RYB
                     hodnotaPole += Rybnik[x, y];
                 }
             }
@@ -60,7 +60,7 @@ namespace Rybareni
         {
             CreateFishArray();
             double soucetCtvercu = 0d;
-            double mezikrok = 0d;
+            double mezikrok;
             double vysledneRyby = 0d;
             string vypisovani = string.Empty;
             for (int x = 0; x < VyskaRybnika - 3; x++)
@@ -76,12 +76,12 @@ namespace Rybareni
                     soucetCtvercu += Rybnik[x + 1, y + 2];
                     soucetCtvercu += Rybnik[x + 2, y + 1];
                     soucetCtvercu += Rybnik[x + 2, y + 2];
-                    mezikrok = soucetCtvercu;
+                    mezikrok = soucetCtvercu / hodnotaPole;
                     soucetCtvercu = 0d;
                     if (mezikrok > vysledneRyby)
                     {
                         vysledneRyby = mezikrok;
-                        vypisovani = $"{x}:{y} / {x + 2}:{y + 2} -> {vysledneRyby / hodnotaPole} ryb";
+                        vypisovani = $"{x}:{y} / {x + 2}:{y + 2} -> {vysledneRyby} ryb";
                     }
                 }
             }
